@@ -6,23 +6,34 @@ This question uses a dictionary and honestly I can't figure out any other way to
 
 ***Question: Given a list of integers nums, find all duplicate numbers and delete their last occurrences.***
 
-We're initialising two dictionaries. Namely ``seen{} and d{}`` 
+Tbvh I was kinda frustrated after looking at the solutions because it was stuff I didn't know but well I guess that's what I'm here for - to learn stuff I didn't know.
 
-We iterate through the list and add each value to dictionary ``d{}`` where the key is the number in the list and the value attached to it is the number of times it has been encountered. If the number is not in the dictionary it is added to the dictionary with a value of 1, however if it already exists in the dictionary the value related to it is increased by 1. 
+So with this question there's a thing called a Python Counter. Basically what it does is:
 
-``For example if the list is nums = [1, 3, 4, 1, 3, 5]``
+``Python Counter takes in input a list, tuple, dictionary, string, which are all iterable objects, and it will give you output that will have the count of each element.``
 
-`` '1' would be a key with the value 2, '3' would be a key with value 2, '4' would be a key with value 1 and '5' would be a key with value 1``
+So if we have a list `[1,3,4,1,3,5]` then using Counter on this list will return ``Counter({1: 2, 3: 2, 4: 1, 5: 1})``
 
-Now the weird part.
+Basically the key is the element in the list and the value attached to it is how many times it appears in the list. Also in order to make this work you have to `` from collections import Counter``.
 
-We initialise a variable i = 0.
+The loop is a little weird but the first if statement is sort of a way to complete the circle. Because there's no way in the beginning any ``c[val]`` will be 0. So we move on with the iteration. Or else we append the value to a new list called res and decrease the value for that key by 1. After that we enter another if statement that says if the count of that value is 1 then set the the count of that value to 0. 
 
-With a while loop we're technically iterating through the list. When we initialise ``n = d[nums[i]]`` we're saying n takes the value of the key from dictionary ``d{}``.
+So let's work with our example list.
 
-So for the first iteration ``n = d[nums[i]] = d[nums[0]] = d[1] = 2``.
+``{1: 2, 3: 2, 4: 1, 5: 1}``
 
-Since ``nums[i]`` which in this case is 1 is not in the ``seen{}`` dictionary we add it to the dictionary with the value 1. Meaning this value has now been seen once. If the n value is the same as the key for nums[i] in seen and the n value is greater than 1. That index is removed from nums. 
+***Step 1:*** The "val" attached to 1 is not 0 so I skip the first if statement and go to the else. I append the actual element in the list to the resulting list and decrease it's count by 1. 
 
--- stopping this here because I ran the solution I found and it don't work 🔪😌 -- 
-boutta kms
+
+So at this point I have ``res = [1]`` and ``c = {1: 1, 3: 2, 4: 1, 5: 1}``. 
+
+When I enter the next if statement the value attached to 1 is actually 1 so I change it to 0. 
+
+And now I have ``c = {1: 0, 3: 2, 4: 1, 5: 1}``
+
+
+***Step 2:*** The same process happens for 3 and 3 gets appended to the resulting list once. 
+
+***Step 3:*** When we come to 4; the value attached to it is not 0 and so it just moves to the else too and gets appended to the resulting list. 
+
+
